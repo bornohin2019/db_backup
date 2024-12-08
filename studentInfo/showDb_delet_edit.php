@@ -1,3 +1,4 @@
+<a href="insert.php">Insert_Info</a>
 <table border="1" style="border-collapse: collapse;">
     <tr>
         <th>Id</th>

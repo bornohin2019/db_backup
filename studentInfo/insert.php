@@ -36,7 +36,7 @@
                         VALUES ('$name', '$email')";   // get input string values;
     
         if (mysqli_query($dbConn, $insertInfo)) {
-            header("location:showDb.php");
+            header("location:showDb_delet_edit.php");
             echo "insert info successfully!";
             exit();
         } else {
