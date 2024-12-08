@@ -1,0 +1,4 @@
+<?php
+$dbb_connect
+
+?>
