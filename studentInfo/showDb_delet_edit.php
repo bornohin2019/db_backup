@@ -51,7 +51,7 @@
             echo "Invalid ID for deletion.";
         }
     }
-
+ 
     mysqli_close($dbConn);
     ?>
 </table>
