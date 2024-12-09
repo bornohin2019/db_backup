@@ -1,10 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "students_info";
-
-$conn = new mysqli($servername, $username, $password, $database);
+$Conn = mysqli_connect('localhost', 'root', '', 'students_info');
 
 if(isset($_GET['editId'])){
     $getId = $_GET['editId'];
