@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2024 at 07:55 AM
+-- Generation Time: Dec 14, 2024 at 07:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,15 +18,21 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `menufooter`
+-- Database: `myweb`
 --
 
 DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `brand_insert` (IN `n` VARCHAR(100), IN `cont` VARCHAR(100))   BEGIN
-INSERT INTO brand SET id=null, name=n, contact=cont;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `call_brand` (IN `n` VARCHAR(11), IN `c` VARCHAR(100))   BEGIN
+INSERT INTO
+brand(name,contact)VALUES(n,c);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `call_product` (IN `n` VARCHAR(100), IN `p` DOUBLE, IN `b_id` INT)   BEGIN
+INSERT INTO
+product(name,price,brand_id)VALUES(n,p,b_id);
 END$$
 
 DELIMITER ;
@@ -39,8 +45,8 @@ DELIMITER ;
 
 CREATE TABLE `brand` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `contact` varchar(100) NOT NULL
+  `name` varchar(100) DEFAULT NULL,
+  `contact` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -48,12 +54,23 @@ CREATE TABLE `brand` (
 --
 
 INSERT INTO `brand` (`id`, `name`, `contact`) VALUES
-(1, 'hp', '344'),
-(2, 'apple', '4343'),
-(3, 'asus', '441'),
-(4, 'asus', '41254'),
-(5, 'asus', '654'),
-(6, 'asus', '1265');
+(1, 'hp', '5949661'),
+(2, 'apple', '99894656'),
+(3, 'asus', '6468989'),
+(4, 'farhana', '6468989');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `details`
+-- (See below for the actual view)
+--
+CREATE TABLE `details` (
+`name` varchar(100)
+,`contact` varchar(100)
+,`p_name` varchar(100)
+,`price` double
+);
 
 -- --------------------------------------------------------
 
@@ -64,8 +81,8 @@ INSERT INTO `brand` (`id`, `name`, `contact`) VALUES
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
-  `price` double(10,2) DEFAULT NULL,
-  `brand_id` int(11) DEFAULT NULL
+  `price` double DEFAULT NULL,
+  `brand_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -73,30 +90,18 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `brand_id`) VALUES
-(1, 'rabbani ', 161.00, 1),
-(2, 'mirza', 326.00, 2);
+(1, 'laptop', 800000, 1),
+(2, 'g8', 69000, 1),
+(3, 'laptop', 800000, 1);
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `product_details`
--- (See below for the actual view)
+-- Structure for view `details`
 --
-CREATE TABLE `product_details` (
-`name` varchar(100)
-,`contact` varchar(100)
-,`pnmame` varchar(100)
-,`price` double(10,2)
-);
+DROP TABLE IF EXISTS `details`;
 
--- --------------------------------------------------------
-
---
--- Structure for view `product_details`
---
-DROP TABLE IF EXISTS `product_details`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_details`  AS SELECT `brand`.`name` AS `name`, `brand`.`contact` AS `contact`, `product`.`name` AS `pnmame`, `product`.`price` AS `price` FROM (`brand` join `product`) WHERE `brand`.`id` = `product`.`brand_id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `details`  AS SELECT `brand`.`name` AS `name`, `brand`.`contact` AS `contact`, `product`.`name` AS `p_name`, `product`.`price` AS `price` FROM (`brand` join `product`) WHERE `brand`.`id` = `product`.`brand_id` ;
 
 --
 -- Indexes for dumped tables
@@ -122,13 +127,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
