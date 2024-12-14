@@ -1,3 +1,8 @@
+
+
+
+
+
 <?php 
 $conn = mysqli_connect('localhost','root','','menufooter');
 if (isset($_GET['deleteid'])){ 

@@ -1,5 +1,5 @@
 <?php
-  $conn = new mysqli("localhost", "root","", "myweb");
+$conn = new mysqli("localhost", "root","", "myweb");
 
     if(isset($_POST['submitBtn'])){
         $name= $_POST['name'];
@@ -69,24 +69,38 @@
     </section>
 
 <div class="table-container">
+    <h3>View Details</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
+                    <th>SL</th>
+                    <th>Products Name</th>
                     <th>Contact</th>
-                    <th>Products</th>
+                    <th>Model</th>
                     <th>Price</th>
 
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>john.doe@example.com</td>
-                    <td>28</td>
-                </tr>
+                <?php
+                $conn = new mysqli("localhost", "root","", "myweb");
+                if (!$conn) {
+                    die('Connection failed:' . mysqli_connect_error());
+                } else {
+                    $user = $conn->query("SELECT * FROM details");
+                    $counter = 1;
+                    while (list($brand, $contact, $product_name, $price) = $user->fetch_row()) {
+                        $sl=$counter++;
+                        echo "<tr>
+                    <td>$sl</td>
+                    <td>$brand</td>
+                    <td>$contact</td>
+                    <td>$product_name</td>
+                    <td>$price</td>
+                </tr>";
+                    }
+                }
+                ?>
             </tbody>
         </table>
     </div>
