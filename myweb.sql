@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2024 at 07:56 AM
+-- Generation Time: Dec 18, 2024 at 07:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,10 +54,17 @@ CREATE TABLE `brand` (
 --
 
 INSERT INTO `brand` (`id`, `name`, `contact`) VALUES
-(1, 'hp', '5949661'),
-(2, 'apple', '99894656'),
-(3, 'asus', '6468989'),
-(4, 'farhana', '6468989');
+(7, 'hp', '1232143');
+
+--
+-- Triggers `brand`
+--
+DELIMITER $$
+CREATE TRIGGER `del_product` AFTER DELETE ON `brand` FOR EACH ROW BEGIN
+DELETE FROM product WHERE id = OLD.id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -90,7 +97,6 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `brand_id`) VALUES
-(1, 'laptop', 800000, 1),
 (2, 'g8', 69000, 1),
 (3, 'laptop', 800000, 1);
 
@@ -127,7 +133,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product`

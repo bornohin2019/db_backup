@@ -15,6 +15,10 @@ $conn = new mysqli("localhost", "root","", "myweb");
 
         $conn->query("CALL call_product('$name', '$price', '$aid')");
     }
+        if(isset($_POST['delBtn'])){
+        $aid = $_POST['delMenu'];
+        $conn->query("DELETE FROM brand WHERE id = '$aid'");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +67,23 @@ $conn = new mysqli("localhost", "root","", "myweb");
                     </tr>
                     
                 </table>
-                <button name='addBtn'>Add Product</button>
+                <button name='addBtn'>Add Product</button><br><br>
+                <table>
+                    <tr>
+                        <td><label for="">Product List</label></td>
+                        <td>
+                            <select name="delMenu" id="">
+                                <?php
+                                    $productList = $conn->query('SELECT * FROM brand');
+                                    while(list($id,$name) = $productList->fetch_row()){
+                                        echo "<option value= '$id'>$name</option>";
+                                    }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <button name='delBtn'>Delete Product</button>
             </div>
         </form>
     </section>
