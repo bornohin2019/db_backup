@@ -1,4 +1,3 @@
-
 <?php 
 $conn = new mysqli('localhost', 'root', '', 'evidence');
 // insert brandInfo 
@@ -6,6 +5,8 @@ if(isset($_POST['submitBtn'])) {
     $name = $_POST['name'];
     $address = $_POST['address'];
     $contact = $_POST['contact'];
+
+    //call prosedual no.1 table
 
     $conn->query("call manuf('$name', '$address', '$contact')");
     header('location:' . $_SERVER['PHP_SELF']);
