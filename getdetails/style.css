@@ -3,18 +3,17 @@ body {
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+
 }
 
-form.f1 {
+.f1 {
+    width: 300px;
+    margin: 0 auto;
+   margin-top: 20px;
     background: #ffffff;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: 300px;
 }
 
 form.f1 label {
@@ -43,3 +42,24 @@ form.f1 input[type="submit"] {
 form.f1 input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+   table {
+       width: 100%;
+       border-collapse: collapse;
+   }
+
+   table,
+   th,
+   td {
+       border: 1px solid black;
+   }
+
+   th,
+   td {
+       padding: 8px;
+       text-align: left;
+   }
+
+   th {
+       background-color: #f2f2f2;
+   }

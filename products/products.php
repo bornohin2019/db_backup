@@ -1,6 +1,6 @@
 <?php
 // Database connection
-$conn = mysqli_connect('localhost', 'root', '', 'getdetails');
+$conn = mysqli_connect('localhost', 'root', '', 'products');
 // Insert data into manufacturere
 if (isset($_POST['insert'])) {
     $name = $_POST['name'];
@@ -65,13 +65,24 @@ if (isset($_POST['delet'])) {
         <label for="pid">Brand Info:</label>
         <select name="pid" required>
             <?php
-            $getm = $conn->query("SELECT * FROM manufacturer");
+            $getm = $conn->query("SELECT * FROM manufacture");
             while (list($id, $name) = $getm->fetch_row()) {
                 echo "<option value='$id'>$name</option>";
             }
             ?>
         </select>
-        <button name="product">Insert</button>
+        <button name="product">Insert</button><br><br>
+        
+                <label for="pid">Select Brand to Delete:</label>
+        <select name="pid" id="pid" required>
+            <?php
+            $getm = $conn->query("SELECT * FROM manufacture");
+            while (list($id, $name) = $getm->fetch_row()) {
+                echo "<option value='$id'>$name</option>";
+            }
+            ?>
+        </select>
+        <button name="delet">Delete</button>
     </form>
 <!-- show display  -->
  <div>
@@ -106,19 +117,6 @@ if (isset($_POST['delet'])) {
             }
             ?>
 
-    <!-- Delete manufacturere -->
-    <form action="" method="post" class="f1">
-        <label for="pid">Select Brand to Delete:</label>
-        <select name="pid" id="pid" required>
-            <?php
-            $getm = $conn->query("SELECT * FROM manufacturer");
-            while (list($id, $name) = $getm->fetch_row()) {
-                echo "<option value='$id'>$name</option>";
-            }
-            ?>
-        </select>
-        <button name="delet">Delete</button>
-    </form>
 
 
 </body>
