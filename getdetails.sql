@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2024 at 08:50 PM
+-- Generation Time: Dec 23, 2024 at 07:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -25,12 +25,12 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `manuf` (IN `n` VARCHAR(50), IN `ad` VARCHAR(100), IN `cont` VARCHAR(50))   BEGIN
-INSERT INTO manufacture SET id=null, name=n, address=ad, contact=cont;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `manuf` (IN `n` VARCHAR(100), IN `ad` VARCHAR(100), IN `cont` VARCHAR(100))   BEGIN
+INSERT INTO manufacturer SET id=null, name=n, address=ad, contact_no=cont;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `productf` (IN `n` VARCHAR(100), IN `p` INT(10), IN `mid` INT(10))   BEGIN
-    INSERT INTO product SET id=null, name=n, price=p, manufactur_id=mid;
+    INSERT INTO product SET id=null, name=n, price=p, manufacturer_id=mid;
 END$$
 
 DELIMITER ;
@@ -38,25 +38,30 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `manufacture`
+-- Table structure for table `manufacturer`
 --
 
-CREATE TABLE `manufacture` (
+CREATE TABLE `manufacturer` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
-  `contact` varchar(50) NOT NULL
+  `contact_no` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `manufacture`
+-- Dumping data for table `manufacturer`
 --
 
-INSERT INTO `manufacture` (`id`, `name`, `address`, `contact`) VALUES
-(4, 'asua', 'usa', '1+954+9'),
-(5, 'mac', 'usa', '48648'),
-(7, 'galib', 'dhaka', '14120564'),
-(8, 'admin', 'bogura', '2589631');
+INSERT INTO `manufacturer` (`id`, `name`, `address`, `contact_no`) VALUES
+(8, 'apple', 'usa', '87965415');
+
+--
+-- Triggers `manufacturer`
+--
+DELIMITER $$
+CREATE TRIGGER `del_pr` AFTER DELETE ON `manufacturer` FOR EACH ROW DELETE FROM product WHERE manufacturer_id = old.id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -65,28 +70,19 @@ INSERT INTO `manufacture` (`id`, `name`, `address`, `contact`) VALUES
 --
 
 CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
+  `id` int(10) NOT NULL,
   `name` varchar(50) NOT NULL,
   `price` int(5) NOT NULL,
-  `manufactur_id` int(10) NOT NULL
+  `manufacturer_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `price`, `manufactur_id`) VALUES
-(1, 'dell e69', 256314, 1),
-(2, 'dell e69', 125000, 1),
-(3, 'x441ua', 42000, 4);
-
---
--- Triggers `product`
---
-DELIMITER $$
-CREATE TRIGGER `del_pr` AFTER DELETE ON `product` FOR EACH ROW DELETE FROM product WHERE manufacture_id = old.id
-$$
-DELIMITER ;
+INSERT INTO `product` (`id`, `name`, `price`, `manufacturer_id`) VALUES
+(5, 'apple', 5646489, 8),
+(6, 'iphone 17 pro max', 5646489, 8);
 
 -- --------------------------------------------------------
 
@@ -97,10 +93,10 @@ DELIMITER ;
 CREATE TABLE `product_details` (
 `name` varchar(50)
 ,`price` int(5)
-,`manufactur_id` int(10)
-,`manuN` varchar(50)
+,`manufacturer_id` int(10)
+,`manu_namne` varchar(50)
 ,`address` varchar(100)
-,`contact` varchar(50)
+,`contact_no` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -110,16 +106,16 @@ CREATE TABLE `product_details` (
 --
 DROP TABLE IF EXISTS `product_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_details`  AS SELECT `product`.`name` AS `name`, `product`.`price` AS `price`, `product`.`manufactur_id` AS `manufactur_id`, `manufacture`.`name` AS `manuN`, `manufacture`.`address` AS `address`, `manufacture`.`contact` AS `contact` FROM (`product` join `manufacture`) WHERE `product`.`manufactur_id` = `manufacture`.`id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_details`  AS SELECT `product`.`name` AS `name`, `product`.`price` AS `price`, `product`.`manufacturer_id` AS `manufacturer_id`, `manufacturer`.`name` AS `manu_namne`, `manufacturer`.`address` AS `address`, `manufacturer`.`contact_no` AS `contact_no` FROM (`product` join `manufacturer`) WHERE `product`.`manufacturer_id` = `manufacturer`.`id` ;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `manufacture`
+-- Indexes for table `manufacturer`
 --
-ALTER TABLE `manufacture`
+ALTER TABLE `manufacturer`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -133,16 +129,16 @@ ALTER TABLE `product`
 --
 
 --
--- AUTO_INCREMENT for table `manufacture`
+-- AUTO_INCREMENT for table `manufacturer`
 --
-ALTER TABLE `manufacture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `manufacturer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
