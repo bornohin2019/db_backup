@@ -81,26 +81,24 @@ if (isset($_POST['delet'])) {
         <thead>
             <tr>
               
+                <th>Id</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Manu ID</th>
-                <th>Manu Name</th>
-                <th>Address</th>
-                <th>Contact</th>
+                <th>Manu id</th>
+                <!-- <th>Address</th>
+                <th>Contact</th> -->
                   
             </tr>
         </thead>
         <tbody>
             <?php
-        $getm = $conn->query("SELECT * FROM product_details");
-         while (list($name, $price, $manufacturer_id,$manu_namne,$address, $contact) = $getm->fetch_row()) {
+        $getm = $conn->query("SELECT * FROM view_product");
+         while (list($id, $name, $price,$manu_id) = $getm->fetch_row()) {
                 echo "  <tr>
-                <td>$name</td>
-                <td> $price</td>
-                <td>$manufacturer_id</td>
-                <td>$manu_namne</td>
-                <td>$address</td>
-                <td>$contact</td>
+                <td>$id</td>
+                <td> $name</td>
+                <td>$price</td>
+                <td>$manu_id</td>
             </tr> 
                 ";
             }
