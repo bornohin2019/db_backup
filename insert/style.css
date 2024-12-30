@@ -1,0 +1,73 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+}
+
+/* Centering the table on the page */
+.table-container {
+    width: 80%;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+/* Styling the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+/* Header row styling */
+th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+/* Table cell styling */
+td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Zebra stripe effect for rows */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect for rows */
+tr:hover {
+    background-color: #e9f5e9;
+}
+
+/* Styling for the table border */
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+/* Responsive table styling */
+@media (max-width: 768px) {
+
+    th,
+    td {
+        padding: 10px;
+    }
+
+    .table-container {
+        width: 100%;
+    }
+}
