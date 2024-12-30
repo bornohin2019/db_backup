@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2024 at 07:30 AM
+-- Generation Time: Dec 30, 2024 at 07:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,13 +49,6 @@ CREATE TABLE `manufacturer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `manufacturer`
---
-
-INSERT INTO `manufacturer` (`id`, `name`, `address`, `contact_no`) VALUES
-(8, 'apple', 'usa', '87965415');
-
---
 -- Triggers `manufacturer`
 --
 DELIMITER $$
@@ -75,14 +68,6 @@ CREATE TABLE `product` (
   `price` int(5) NOT NULL,
   `manufacturer_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `product`
---
-
-INSERT INTO `product` (`id`, `name`, `price`, `manufacturer_id`) VALUES
-(5, 'apple', 5646489, 8),
-(6, 'iphone 17 pro max', 5646489, 8);
 
 -- --------------------------------------------------------
 
@@ -132,13 +117,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `manufacturer`
 --
 ALTER TABLE `manufacturer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
